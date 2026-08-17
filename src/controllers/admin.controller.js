@@ -31,7 +31,19 @@ const deleteUser = async (req, res) => {
     }
 }
 
-const updateUserRole = async (req, res) => { }
+const updateUserRole = async (req, res) => {
+    const { id } = req.params
+    const { role } = req.body
+    try {
+        const user = await userModel.findById(id)
+        user.role = role || user.role
+        await user.save()
+        res.status(200).json({ message: 'User Role Updated successfully 😎', user })
+    } catch (error) {
+        console.log('Got an error while updating the role', error.message)
+        res.status(500).json({ message: 'Got an error while updating the role 😐' })
+    }
+}
 
 const dashBoardStats = async (req, res) => { }
 
