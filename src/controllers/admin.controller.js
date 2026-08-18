@@ -36,7 +36,11 @@ const updateUserRole = async (req, res) => {
     const { role } = req.body
     try {
         const user = await userModel.findById(id)
+        if (!user) return res.status(404).json({ message: 'User not found' })
+
+        if (!['user', 'admin'].includes(role)) return res.status(400).json({ message: 'Invalid role' })
         user.role = role || user.role
+    
         await user.save()
         res.status(200).json({ message: 'User Role Updated successfully 😎', user })
     } catch (error) {
