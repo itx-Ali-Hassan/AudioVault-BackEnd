@@ -2,6 +2,13 @@ require('dotenv').config()
 const connectDB = require('./src/db/db')
 const app = require('./src/app')
 
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: 'ok',
+        message: 'AudioVault server is running 😎'
+    })
+})
+
 async function startServer() {
     const PORT = process.env.PORT || 3000
     await connectDB()

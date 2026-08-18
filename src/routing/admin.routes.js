@@ -9,6 +9,6 @@ router.get('/dashboard', authMiddleware, isAdmin, dashBoardStats)
 
 router.get('/users', authMiddleware, isAdmin, getAllUsers)
 
-router.route('/users/:id').get(authMiddleware, isAdmin, getAllUsers).delete(authMiddleware, isAdmin, deleteUser).put(authMiddleware, isAdmin, updateUserRole)
+router.route('/users/:id').delete(authMiddleware, isAdmin, deleteUser).put(authMiddleware, isAdmin, updateUserRole)
 
 module.exports = router
