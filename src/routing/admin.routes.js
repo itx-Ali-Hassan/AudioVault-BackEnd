@@ -11,8 +11,4 @@ router.get('/users', authMiddleware, isAdmin, getAllUsers)
 
 router.route('/users/:id').get(authMiddleware, isAdmin, getAllUsers).delete(authMiddleware, isAdmin, deleteUser).put(authMiddleware, isAdmin, updateUserRole)
 
-router.get('/audios', authMiddleware, isAdmin, getAllAudios)
-
-router.get('/audios/:id', authMiddleware, isAdmin, getAudioById)
-
 module.exports = router

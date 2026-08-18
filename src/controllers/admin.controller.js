@@ -40,7 +40,7 @@ const updateUserRole = async (req, res) => {
 
         if (!['user', 'admin'].includes(role)) return res.status(400).json({ message: 'Invalid role' })
         user.role = role || user.role
-    
+
         await user.save()
         res.status(200).json({ message: 'User Role Updated successfully 😎', user })
     } catch (error) {
@@ -49,6 +49,16 @@ const updateUserRole = async (req, res) => {
     }
 }
 
-const dashBoardStats = async (req, res) => { }
+const dashBoardStats = async (req, res) => {
+    try {
+        const totalUsers = await userModel.countDocuments()
+        const totalAudios = await audioModel.countDocuments()
+        const totalAdmins = await userModel.countDocuments({ role: 'admin' })
+        res.status(200).json({ message: 'Dashboard stats fetched successfully', stats: { totalUsers, totalAudios, totalAdmins } })
+    } catch (error) {
+        console.log('Got an error while fetching dashboard stats', error.message);
+        res.status(500).json({ message: 'Got an error while fetching dashboard stats' });
+    }
+}
 
 module.exports = { getAllUsers, deleteUser, updateUserRole, dashBoardStats }
